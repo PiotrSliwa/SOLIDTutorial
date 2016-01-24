@@ -22,7 +22,7 @@ The principles specify common patterns (although they are not [Design Patterns](
 You need to be familiar with the [Object Oriented Programming](https://en.wikipedia.org/wiki/Object-oriented_programming) concept and the programming language used in the selected tutorial.
 
 ## Tutorial
-* **C++ Tutorial**
+* **[SOLIDTutorial (C++)](https://github.com/PiotrSliwa/SOLIDTutorial/blob/master/SOLIDTutorial_Cpp.md)**
 
 ## Contribution
 Eveyone is welcome to make contributions to the tutorial. Especially, it needs examples in many programming languages in order to be easily understanable by vast group of developers. In order to commit, please follow the common [Pull request procedure](https://help.github.com/articles/using-pull-requests/).
