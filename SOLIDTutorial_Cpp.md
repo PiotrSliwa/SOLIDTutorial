@@ -168,4 +168,34 @@ void sendMessageToGlobalPort(...) { ... }
 
 and you end up having nightmares each time there's a demand for a slight change with message sending mechanism, because to do that you have to change and test an enormous amount of code to achieve very little. It means that **the cost of code maintenence begins to grow exponentially**.
 
-Remember: **it's much easier to build a house of many small bricks than to carve the same in a one, big rock**.
+Remember: **it's easier to build a house of many small bricks than to carve the same in one, big rock**. That means, it's better to create many small functions and use them freely than to create big ones that cannot be reused and needs modification anytime something changes in code.
+
+The same rule applies to objects (which will be brought up in *Practice* paragraph.
+
+
+### Practice
+
+
+## 2. Open-Closed Principle (OCP)
+
+### Theory
+
+### Practice
+
+## 3. Liskov Substitution Principle (LSP)
+
+### Theory
+
+### Practice
+
+## 4. Interface Segregation Principle (ISP)
+
+### Theory
+
+### Practice
+
+## 5. Dependency Inversion Principle (DIP)
+
+### Theory
+
+### Practice
