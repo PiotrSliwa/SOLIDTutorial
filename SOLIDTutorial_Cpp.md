@@ -38,12 +38,12 @@ You open calculator's source code and begin to analyze it. Wow, as it turns out 
 
 
 
-## 1. S: Single Responsibilty Principle (SRP)
+## 1. S: Single Responsibility Principle (SRP)
 
 ### Theory
 The above issue is actually very popular. As programmers we usually deal with short deadlines and exuberant specification which results in code that is developed in a hurry. That means many of us would just put his/her code snippet into a place just to make it work and move to a next task. Inevitably, there have been numerous situations where someone committed something like this:
 
-```
+``` C++
 void send(const Message& message, Port& port)
 {
     if (message.type == NOT_SUPPORTED) return;  // this line has been added because specification had been changed and now
@@ -55,7 +55,7 @@ void send(const Message& message, Port& port)
 
 The implemented solution is quick and surely simple. However, it makes the function do more than only what its name suggests - now, not only it sends a message, but also validates whether the message shall be sent at all. Therefore, the name is incorrect and worse - the function itself has become highly error-prone. When someone uses it to send a message, (s)he can never be sure that it will be sent whatsoever. Sometimes a message may be supposed to be sent even if `type` field is `NOT_SUPPORTED`. What if someone whould want to send the not upoorted message to a special, logger port:
 
-```
+``` C++
 void send(const Message& message, Port& port)
 {
     if (message.type == NOT_SUPPORTED) return; 
@@ -80,7 +80,7 @@ void dispatch(const Message& message)
 
 Obviously, usage errors could be avoided by changing the function's name from `send` to `sendWhenTypeSupported`. Nevertheless, when name contains a codition, it leads to another problem. Let's try to debug such a short code:
 
-```
+``` C++
 void send(const Message& message, Port& port)
 {
     if (message.type == NOT_SUPPORTED) return; 
@@ -109,7 +109,7 @@ Can you see the problem? Of course! When there was a message with type set to `N
 
 Now, look at the improved example:
 
-```
+``` C++
 void send(const Message& message, Port& port)
 {
     port.add(message);
@@ -147,7 +147,7 @@ bool tryToSendSupportedMessage(const Message& message)
 
 Now, it should work properly. Isn't it clearer to read, too? What we did is that we split the one, big, many-in-one function into multiple small ones. Thanks to that, we could defer the development of logic until all the complicated, low-level implementational details are nicely packed into readable functions. Now, when you read `tryToSendSupportedMessage()` function, you can almost read it like a high-level documentation:
 
-```
+``` C++
 if (isMessageSupported(message))        // if `message` is supported
 {                                       // {
     send(message, globalPort);          //      send `message` to `globalPort`
@@ -159,13 +159,13 @@ return false;                           // otherwise return false
 
 Another problem introduced by the bigger `sendWhenTypeSupported` function is - as you probably guess - that it's less reusable than `send`. It can be used only if developer restricts that only messages with `type` field other than `NOT_SUPPORTED` are to be sent. Just imagine a monster like `sendSupportedMessageToRecentlyCreatedUser`. Even though it seems just evil, such things happen in real world code (much too often). Note, that there are many things that could force a need to modify the function - at least change of message support condition, user storage implementation and message sending implementation. Sum it up with the fact, that there are plentiful of highly specialized functions like
 
-```
+``` C++
 void sendSupportedMessageToRecentlyCreatedUser(...) { ... }
 void sendUnsupportedMessageToLogger(...) { ... }
 void sendMessageToGlobalPort(...) { ... }
 // (...)
 ```
 
-and you end up having nightmares each time there's a demand for a slight change with message sending mechanism, because to do that you have to change and test an enormous amount of code to achieve very little. It means that **the cost of code maintenence begin to grow exponentially**.
+and you end up having nightmares each time there's a demand for a slight change with message sending mechanism, because to do that you have to change and test an enormous amount of code to achieve very little. It means that **the cost of code maintenence begins to grow exponentially**.
 
 Remember: **it's much easier to build a house of many small bricks than to carve the same in a one, big rock**.
