@@ -53,7 +53,7 @@ void send(const Message& message, Port& port)
 }
 ```
 
-The implemented solution is quick and surely simple. However, it makes the function do more than only what its name suggests - now, not only it sends a message, but also validates whether the message shall be sent at all. Therefore, the name is incorrect and worse - the function itself has become highly error-prone. When someone uses it to send a message, (s)he can never be sure that it will be sent whatsoever. Sometimes a message may be supposed to be sent even if `type` field is `NOT_SUPPORTED`. What if someone whould want to send the not upoorted message to a special, logger port:
+The implemented solution is quick and surely simple. However, it makes the function do more than only what its name suggests - now, not only it sends a message, but also validates whether the message shall be sent at all. Therefore, the name is incorrect and worse - the function itself has become highly error-prone. When someone uses it to send a message, (s)he can never be sure that it will be sent whatsoever. Sometimes a message may be supposed to be sent even if `type` field is `NOT_SUPPORTED`. What if someone wanted to send the not upoorted message to a special, logger port:
 
 ``` C++
 void send(const Message& message, Port& port)
